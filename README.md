@@ -3,6 +3,9 @@
 ## Навигация
 TODO
 
+## Диаграмма
+<img src="/images/CLI_diagram.png"/>
+
 ## Общие обозначения диаграммы
 TODO
 
