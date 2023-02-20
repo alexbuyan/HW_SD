@@ -132,7 +132,7 @@ Command {
 * PwdCommand
 * ExitCommand
 
-### Exceptions
+### Exception
 Классы для обработки специализированных исключений.
 
 ###### Виды исключений
