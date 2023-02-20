@@ -1,13 +1,20 @@
 # Проект по SD (CLI)
 
 ## Навигация
-TODO
+* [Диаграмма](https://github.com/alexbuyan/HW_SD/tree/hw1#%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0)
+* [Описания классов](https://github.com/alexbuyan/HW_SD/tree/hw1#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2)
+
+    * [GUI](https://github.com/alexbuyan/HW_SD/tree/hw1#gui)
+    * [ParseManager](https://github.com/alexbuyan/HW_SD/tree/hw1#parsemanager)
+    * [Lexer](https://github.com/alexbuyan/HW_SD/tree/hw1#lexer)
+    * [Token + TokenType](https://github.com/alexbuyan/HW_SD/tree/hw1#token)
+    * [Parser](https://github.com/alexbuyan/HW_SD/tree/hw1#parser)
+    * [Command](https://github.com/alexbuyan/HW_SD/tree/hw1#command)
+    * [*Exception](https://github.com/alexbuyan/HW_SD/tree/hw1#exception)
+
 
 ## Диаграмма
 <img src="/images/CLI_diagram.png"/>
-
-## Общие обозначения диаграммы
-TODO
 
 ## Описания классов
 ### GUI
@@ -79,7 +86,7 @@ Token - это примитивная структура, которая буд�
 ###### Cтруктура
 ```
 Token {
-	tokenType: TokenType
+    tokenType: TokenType
     tokenValue: String
 }
 ```
