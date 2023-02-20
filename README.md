@@ -11,16 +11,16 @@ TODO
 
 ## Описания классов
 ### GUI
-Этот класс реализуют графический интерфейс командной строки
+Этот класс реализует графический интерфейс командной строки
 ###### Cтруктура класса
 ```
 GUI {
 	parseManager: ParseManager() // логика работы CLI
 
-	void run() // запускает GUI
 	// метод в бесконечном режиме получает введенные
 	// пользователем команды и передает их ParseManager
 	// для разбора.
+	void run() // запускает GUI
 
 	void exit() // останавливает GUI
 }
@@ -39,9 +39,9 @@ ParseManager {
 	parser: Parser()
 	interpreter: Interpreter()
 
-	void executeCommand(String command)
 	// прогоняет строчку, полученную из GUI, через наш алгоритм,
 	// который выполнит команду
+	void executeCommand(String command)
 }
 ```
 
@@ -50,21 +50,37 @@ ParseManager {
 ###### Cтруктура класса
 ```
 Lexer {
-	List<Token> lex(String input)
 	// метод, который проводит лексический анализ
+	List<Token> lex(String input)
 }
 ```
 
 ### Token
-Описывает правила, которые могут встретиться внутри ввода пользователя. По этим правилам наш парсер пытается построить дерево разбора
+У нас будет описание нашей грамматики через различные типы токенов (TokenType):
+```
+// Примерное описание грамматики
+TokenType : Arg
+          | Args
+          | Command
+          | CommandName
+
+Command : CommandName + ' ' + Args
+
+CommandName : String
+
+Args : Arg
+     | Arg + ' ' + Args
+
+Arg : String
+```
+Token - это примитивная структура, которая будет хранить тип токена из нашей грамматики и его значение.
+
+По этим токенам парсер будет строить дерево разбора
 ###### Cтруктура
 ```
-// Примерная структура, возможно потребуется более четкое описание грамматики
-enum Token {
-	Arg: String
-	Args: Arg | Arg + ' ' + Args
-	Command: CommandName + ' ' + Args
-	CommandName: String
+Token {
+	tokenType: TokenType
+    tokenValue: String
 }
 ```
 
@@ -73,20 +89,13 @@ enum Token {
 ###### Cтруктура класса
 ```
 Parser {
-	void init(List<Token> tokens)
 	// запоминает токены, полученные из лексера, 
 	// для дальнейшей работы парсера
+	void init(List<Token> tokens)
 
-	CommandNode parse()
 	// метод выполняет парсинг и возвращает полученное AST
+	AST parse()
 }
-```
-
-### CommandNode
-Эта сущность нужна для описания дерева разбора введенной пользователем команды
-###### Cтруктура класса
-```
-TODO
 ```
 
 ### Interpreter
@@ -94,7 +103,7 @@ TODO
 ###### Cтруктура класса
 ```
 Interpreter {
-	void executeCommand(CommandNode node)
+	void executeCommand(AST ast)
 }
 ```
 
