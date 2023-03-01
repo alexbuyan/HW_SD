@@ -28,18 +28,17 @@ class Tester:
         expected_result = os.getcwd() + '\n'
         self.__check_result(command_str, expected_result)
 
-    #def test_var_declaration(self):
-    #    declaration_result = self.parser_manager.process_input("n=10")
-    #    assert(declaration_result == "")
-    #    self.__check_result(command_str="echo $n",
-    #                        expected_result="10\n")
+    def test_var_declaration(self):
+        self.parser_manager.process_input("n = 10")
+        self.__check_result(command_str="echo $n",
+                            expected_result="10\n")
 
     def run_tests(self):
         self.test_echo_eval()
         self.test_cat_eval()
         self.test_wc_eval()
         self.test_pwd_eval()
-        #self.test_var_declaration()
+        self.test_var_declaration()
 
 
 if __name__ == "__main__":
