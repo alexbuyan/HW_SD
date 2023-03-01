@@ -24,11 +24,8 @@ class Cmd(_Ast):
 
 
 @dataclass
-class Pipeline(_Ast):
-    cmd1: Cmd
-    pipe: str = None
-    cmd2: Cmd = None
-
+class Pipeline(_Ast, ast_utils.AsList):
+    commands: List
 
 @dataclass
 class EnvInit(_Ast):

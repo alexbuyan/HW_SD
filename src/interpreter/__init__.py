@@ -22,18 +22,18 @@ class Interpreter:
 
     @dispatch(Pipeline)
     def evaluate(self, pipeline):
-        cmd1 = pipeline.cmd1
-        cmd2 = pipeline.cmd2
-        pipe = pipeline.pipe
-        if not cmd2:
-            return self.evaluate(cmd1)
-        name1 = cmd1.name
-        args1 = cmd1.args
-        args1 = self.evaluate(args1)
-        name2 = cmd2.name
-        args2 = cmd2.args
-        args2 = self.evaluate(args2)
-        stream = os.popen(f"{name1} {args1} {pipe} {name2} {args2}")
+        commands = pipeline.commands
+        if len(commands) == 1:
+            return self.evaluate(commands[0])
+        executed_command = ""
+        for command in commands:
+            if command == '|':
+                executed_command += ' ' + command + ' '
+            else:
+                name = command.name
+                args = self.evaluate(command.args)
+                executed_command += name + ' ' + args
+        stream = os.popen(f"{executed_command}")
         result = stream.read()
         stream.close()
         return result
