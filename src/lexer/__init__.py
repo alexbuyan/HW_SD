@@ -4,27 +4,26 @@ grammar = """
 %ignore WS
 
 start: pipeline
-     | statement
-     | vars
-            
-vars: var*
-var: /\$\S+/
-        
-statement: name "=" value
-
-name: /\w/+
-        
-value: /\S+.\w+/
-     | /\S+/
-     | NUMBER
-
+     | envs_init
+     | env
+     
 pipeline: (cmd pipe)* cmd
 pipe: /\|/
 
 cmd: cmd_name args
-cmd_name: /(cat|echo|wc|pwd|exit)/
+cmd_name: "cat" | "echo" | "wc" | "pwd" | "exit"
 
 args: arg*
-arg: /\S+.\w+/
-   | /\S+/
+arg: "$" env_name
+   | /\"$env_name\"/
+   | /([^\s"\'\|]+)/
+   | /\'([^\']*)\'/
+   | /"([^"]*)"/
+   
+env: "$" env_name
+   
+envs_init: env_init*
+env_init: env_name "=" arg
+        
+env_name: /([A-Za-z][\_A-Za-z0-9]*)/
 """
