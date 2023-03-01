@@ -25,15 +25,15 @@ class Interpreter:
         cmd1 = pipeline.cmd1
         cmd2 = pipeline.cmd2
         pipe = pipeline.pipe
-        res1 = self.evaluate(cmd1)
         if not cmd2:
-            return res1  # if this was not pipeline and just one command
+            return self.evaluate(cmd1)
+        name1 = cmd1.name
+        args1 = cmd1.args
+        args1 = self.evaluate(args1)
         name2 = cmd2.name
-        args2 = cmd2.args.values
-        args2.append(res1)
-        cmd2 = Cmd(name=name2, args=Args(args2))
-        res2 = self.evaluate(cmd2)
-        stream = os.popen(f"{res2}")  # doesn't work like this ????
+        args2 = cmd2.args
+        args2 = self.evaluate(args2)
+        stream = os.popen(f"{name1} {args1} {pipe} {name2} {args2}")
         result = stream.read()
         stream.close()
         return result
