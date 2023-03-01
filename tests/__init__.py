@@ -9,6 +9,7 @@ class Tester:
 
     def __check_result(self, command_str: str, expected_result: str):
         cli_result = self.parser_manager.process_input(command_str)
+        print("cli_result: {}".format(cli_result))
         assert (cli_result == expected_result)
 
     def test_echo_eval(self):
@@ -16,12 +17,14 @@ class Tester:
                             expected_result="something\n")
 
     def test_cat_eval(self):
-        self.__check_result(command_str="cat test_file.txt",
+        print(os.getcwd())
+        self.__check_result(command_str="cat tests/test_file.txt",
                             expected_result="Some text! Have a nice day!\n")
 
     def test_wc_eval(self):
-        self.__check_result(command_str="wc test_file.txt",
-                            expected_result="       1       6      28 test_file.txt\n")
+        file_path = "tests/test_file.txt"
+        self.__check_result(command_str="wc " + file_path,
+                            expected_result="       1       6      28 " + file_path + "\n")
 
     def test_pwd_eval(self):
         command_str = "pwd"
