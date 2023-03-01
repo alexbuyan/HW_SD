@@ -43,6 +43,8 @@ class Interpreter:
         name = cmd.name
         args = cmd.args
         transformed_args = self.evaluate(args)
+        if name == "exit":
+            exit()
         stream = os.popen(f"{name} {transformed_args}")  # might freeze ????
         result = stream.read()
         stream.close()
