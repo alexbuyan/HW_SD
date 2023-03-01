@@ -8,7 +8,7 @@ start: pipeline
      | vars
             
 vars: var*
-var: /\$\S+/
+var: /\$[\w.\w]+/
         
 statement: name "=" value
 
