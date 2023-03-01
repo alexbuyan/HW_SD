@@ -39,8 +39,3 @@ class Tester:
         self.test_wc_eval()
         self.test_pwd_eval()
         self.test_var_declaration()
-
-
-if __name__ == "__main__":
-    tester = Tester()
-    tester.run_tests()
