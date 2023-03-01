@@ -22,9 +22,9 @@ class Tester:
                             expected_result="Some text! Have a nice day!\n")
 
     def test_wc_eval(self):
-        file_path = "tests/test_file.txt"
-        self.__check_result(command_str="wc " + file_path,
-                            expected_result="       1       6      28 " + file_path + "\n")
+        command_str = "wc tests/test_file.txt"
+        self.__check_result(command_str=command_str,
+                            expected_result=os.popen(command_str).read())
 
     def test_pwd_eval(self):
         command_str = "pwd"
