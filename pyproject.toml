@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.8"
 lark = "^1.1.5"
 ply = "^3.11"
+multipledispatch = "^0.6.0"
 
 
 [build-system]
