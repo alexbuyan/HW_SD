@@ -40,9 +40,19 @@ class EnvCall(_Ast):
 
 class AstTransformer(Transformer):
     def cmd_name(self, data):
+        """
+        Name of the command
+        :param data: [Token]
+        :return: str
+        """
         return data[0].value
 
     def val(self, data):
+        """
+        Value of the environment variable
+        :param data: [Token]
+        :return: Any
+        """
         value = data[0].value
         if value[0] == '"':
             value = value[1:-1]
@@ -51,11 +61,26 @@ class AstTransformer(Transformer):
         return value
 
     def pipe(self, data):
+        """
+        Pipe symbol
+        :param data: [Token]
+        :return: str
+        """
         return '|'
 
     def env_name(self, data):
+        """
+        Name of the environment variable
+        :param data: [Token]
+        :return: str
+        """
         return data[0].value
 
     @v_args(inline=True)
     def start(self, data):
+        """
+        Get rid of leave and pass the list of tokens
+        :param data: [Token]
+        :return: [Token]
+        """
         return data
