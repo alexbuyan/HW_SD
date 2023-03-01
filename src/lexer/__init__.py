@@ -1,29 +1,27 @@
 grammar = """
-%import common.NUMBER
 %import common.WS
+%import common.EQUAL
 %ignore WS
 
 start: pipeline
-     | envs_init
-     | env
+     | env_init
+     | env_call
 
 pipeline: (cmd pipe)* cmd
 pipe: /\|/
 
 cmd: cmd_name args
-cmd_name: "cat" | "echo" | "wc" | "pwd" | "exit"
+!cmd_name: "cat"|"echo"|"wc"|"pwd"|"exit"
 
-args: arg*
-arg: "$" env_name
+args: val*
+env_init: env_name "=" val
+
+val: "$"env_name
    | /\"$env_name\"/
    | /([^\s"\'\|]+)/
    | /\'([^\']*)\'/
    | /"([^"]*)"/
    
-env: "$" env_name
-   
-envs_init: env_init*
-env_init: env_name "=" arg
-        
+env_call: "$"env_name    
 env_name: /([A-Za-z][\_A-Za-z0-9]*)/
 """

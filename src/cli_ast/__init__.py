@@ -29,46 +29,35 @@ class Pipeline(_Ast):
     pipe: str = None
     cmd2: Cmd = None
 
+
 @dataclass
-class EnvInit:
+class EnvInit(_Ast):
     env_name: str
     env_value: str
 
+
 @dataclass
-class EnvsInit(_Ast, ast_utils.AsList):
-    envs: List[EnvInit]
+class EnvCall(_Ast):
+    env_name: str
+
 
 class AstTransformer(Transformer):
-    def __init__(self):
-        super().__init__()
-        self.__env_context = dict()
-
     def cmd_name(self, data):
-        # TODO FIX HERE
-        print(data)
-        return data
-
-    def arg(self, data):
         return data[0].value
+
+    def val(self, data):
+        value = data[0].value
+        if value[0] == '"':
+            value = value[1:-1]
+        if value[0] == '$':
+            return EnvCall(value[1:])
+        return value
 
     def pipe(self, data):
         return '|'
 
     def env_name(self, data):
         return data[0].value
-
-    def env_init(self, data):
-        name, value = data
-        self.__env_context[name] = value
-        return EnvInit(name, value)
-
-    @v_args(inline=True)
-    def env(self, data):
-        name = data
-        value = self.__env_context.get(name)
-        if not value:
-            raise Exception("no such env var")
-        return value
 
     @v_args(inline=True)
     def start(self, data):
