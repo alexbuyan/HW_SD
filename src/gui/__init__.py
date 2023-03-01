@@ -12,7 +12,9 @@ class GUI:
         signal.signal(signal.SIGINT, self.exit)
         while True:
             input_str = input('cli> ')
-            self.__parse_manager.process_input(input_str)
+            result = self.__parse_manager.process_input(input_str)
+            if result:
+                print(result)
 
     def exit(self, signal, frame):
         sys.exit(0)

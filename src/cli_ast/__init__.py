@@ -32,13 +32,13 @@ class Pipeline(_Ast):
 
 @dataclass
 class EnvInit(_Ast):
-    env_name: str
-    env_value: str
+    name: str
+    value: str
 
 
 @dataclass
 class EnvCall(_Ast):
-    env_name: str
+    name: str
 
 
 class AstTransformer(Transformer):
