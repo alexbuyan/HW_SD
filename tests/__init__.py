@@ -44,6 +44,20 @@ class Tester:
         self.__check_result(command_str="echo $n",
                             expected_result="10\n")
 
+        self.parser_manager.process_input("FILE = tests/test_file.txt")
+        self.__check_result(command_str="cat $FILE",
+                            expected_result="Some text! Have a nice day!\n")
+
+    def test_pipe_cat_wc(self):
+        command_str = "cat tests/test_file.txt | wc"
+        self.__check_result(command_str=command_str,
+                            expected_result=os.popen(command_str).read())
+
+    def test_pipe_echo_wc(self):
+        command_str = "echo 123 | wc"
+        self.__check_result(command_str=command_str,
+                            expected_result=os.popen(command_str).read())
+
     def run_tests(self):
         self.test_echo_eval()
         self.test_echo_single_quotes()
@@ -52,3 +66,5 @@ class Tester:
         self.test_wc_eval()
         self.test_pwd_eval()
         self.test_var_declaration_and_dollar()
+        self.test_pipe_cat_wc()
+        self.test_pipe_echo_wc()
