@@ -59,9 +59,6 @@ class Interpreter:
     def evaluate(self, env_call):
         name = env_call.name
         value = self.__get_env_var(name)
-        if not value:
-            # TODO raise no such env exception
-            return
         return value
 
     @dispatch(EnvInit)
