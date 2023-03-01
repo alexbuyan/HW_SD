@@ -44,6 +44,7 @@ class AstTransformer(Transformer):
         self.__env_context = dict()
 
     def cmd_name(self, data):
+        # TODO FIX HERE
         print(data)
         return data
 

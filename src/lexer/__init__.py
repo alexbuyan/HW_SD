@@ -6,7 +6,7 @@ grammar = """
 start: pipeline
      | envs_init
      | env
-     
+
 pipeline: (cmd pipe)* cmd
 pipe: /\|/
 
