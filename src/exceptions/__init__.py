@@ -1,18 +1,23 @@
 class InterpreterException(Exception):
-    message = "Executing command error"
+    def __init__(self, message: str = "Executing command error"):
+        self.__message = message
 
 
 class UnexpectedTokenException(InterpreterException):
-    message = "Unexpected token error"
+    def __init__(self):
+        super().__init__("Unexpected token error")
 
 
 class UnknownCommand(InterpreterException):
-    message = "Unknown command error"
+    def __init__(self):
+        super().__init__("Unknown command error")
 
 
 class InvalidArgumentException(InterpreterException):
-    message = "Invalid argument error"
+    def __init__(self):
+        super().__init__("Invalid argument error")
 
 
 class InvalidArgumentNumberException(InterpreterException):
-    message = "Invalid number of arguments error"
+    def __init__(self):
+        super().__init__("Invalid number of arguments error")
