@@ -9,4 +9,6 @@ class ParseManager:
 
     def process_input(self, input_str: str):
         ast = self.__parser.parse(input_str)
-        self.__interpreter.execute(ast)
+        # self.__interpreter.execute(ast)
+        result = self.__interpreter.evaluate(ast)
+        print(result)
