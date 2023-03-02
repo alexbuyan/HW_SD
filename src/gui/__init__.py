@@ -9,6 +9,10 @@ class GUI:
         self.__parse_manager = ParseManager()
 
     def run(self):
+        """
+        Reads inputs and outputs results processed by ParseManager function process_input
+        :return: None
+        """
         signal.signal(signal.SIGINT, self.exit)
         while True:
             input_str = input('cli> ')
