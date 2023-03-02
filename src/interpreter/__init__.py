@@ -2,6 +2,8 @@ import os
 from src.cli_ast import Cmd, Args, Pipeline, EnvCall, EnvInit
 from multipledispatch import dispatch
 
+from src.exceptions import InterpreterEvaluationException
+
 
 class Interpreter:
     def __init__(self):
@@ -13,7 +15,7 @@ class Interpreter:
     def __get_env_var(self, name):
         return self.__env_variables.get(name)
 
-    def checkAST(self, ast):
+    def check_Ast(self, ast):
         print(f'interpreter got ast : {ast}')
 
     @dispatch(str)
@@ -25,6 +27,7 @@ class Interpreter:
         commands = pipeline.commands
         if len(commands) == 1:
             return self.evaluate(commands[0])
+
         executed_command = ""
         for command in commands:
             if command == '|':
@@ -33,7 +36,12 @@ class Interpreter:
                 name = command.name
                 args = self.evaluate(command.args)
                 executed_command += name + ' ' + args
-        stream = os.popen(f"{executed_command}")
+
+        try:
+            stream = os.popen(f"{executed_command}")
+        except Exception:
+            raise InterpreterEvaluationException()
+
         result = stream.read()
         stream.close()
         return result
@@ -45,7 +53,12 @@ class Interpreter:
         transformed_args = self.evaluate(args)
         if name == "exit":
             exit()
-        stream = os.popen(f"{name} {transformed_args}")  # might freeze ????
+
+        try:
+            stream = os.popen(f"{name} {transformed_args}")
+        except Exception:
+            raise InterpreterEvaluationException()
+
         result = stream.read()
         stream.close()
         return result

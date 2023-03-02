@@ -1,3 +1,6 @@
+from lark import UnexpectedInput
+
+from src.exceptions import InterpreterEvaluationException
 from src.parser import Parser
 from src.interpreter import Interpreter
 
@@ -8,6 +11,11 @@ class ParseManager:
         self.__interpreter = Interpreter()
 
     def process_input(self, input_str: str) -> str:
-        ast = self.__parser.parse(input_str)
-        self.__interpreter.checkAST(ast)
-        return self.__interpreter.evaluate(ast)
+        try:
+            ast = self.__parser.parse(input_str)
+            self.__interpreter.check_Ast(ast)
+            return self.__interpreter.evaluate(ast)
+        except UnexpectedInput as e:
+            return e.get_context(input_str)
+        except InterpreterEvaluationException as e:
+            return e.get_message()
