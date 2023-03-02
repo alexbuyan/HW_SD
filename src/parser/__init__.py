@@ -22,5 +22,5 @@ class Parser:
             parse_tree = self.__parser.parse(input_str)
             ast = self.__transformer.transform(parse_tree)
             return ast
-        except UnexpectedInput:
-            raise
+        except UnexpectedInput as e:
+            return e.__str__()
