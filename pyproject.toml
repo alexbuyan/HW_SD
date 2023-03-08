@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cli"
+version = "0.1.0"
+description = ""
+authors = ["alexbuyan <sashabuyan@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+lark = "^1.1.5"
+ply = "^3.11"
+multipledispatch = "^0.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
