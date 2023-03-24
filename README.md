@@ -7,4 +7,4 @@
 ![](diagrams/components-diagram.png)
 
 ### Диаграмма развертывания
-TODO
+![](diagrams/deployment-diagram.png)
