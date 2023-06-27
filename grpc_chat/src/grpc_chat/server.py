@@ -31,13 +31,13 @@ class ChatServicer(pb2_grpc.ChatServicer):
                 response = pb2.Message(sender_name=request.sender_name, message_text=request.message_text,
                                                 timestamp=request.timestamp)
                 try:
-                    client['stub'].receive(response)
+                    client['stub'].send(response)
                 except:
                     print(f"Unable to send message to client {client['name']}")
 
     def register(self, request, context):
         client = {'name': request.name,
-                  'stub': pb2_grpc.ChatStub(context.invocation_metadata()[0][1])}
+                  'stub': pb2_grpc.ChatStub(channel=grpc.insecure_channel(context.peer()))}
 
         self.clients.append(client)
         print(f"Registered client {request.name}")

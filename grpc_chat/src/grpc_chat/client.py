@@ -5,8 +5,8 @@ from datetime import datetime
 import time
 
 class Client:
-    def __init__(self, port=8000):
-        self.__host = 'localhost'
+    def __init__(self, host='localhost', port=8000):
+        self.__host = host
         self.__port = port
         self.__channel = grpc.insecure_channel('{}:{}'.format(self.__host, self.__port))
         self.__stub = pb2_grpc.ChatStub(channel=self.__channel)
@@ -16,6 +16,7 @@ class Client:
         if self.__username:
             return
         self.__username = username
+        self.__stub.register(pb2.Client(name=self.__username))
 
     def run(self):
         try:
@@ -35,8 +36,9 @@ class Client:
         
 
 if __name__ == "__main__":
-    port = input("> Enter port: ")
-    client = Client(port)
+    host = input("> Enter peer (default=localhost): ") or 'localhost'
+    port = input("> Enter port (default=8000): ") or 8000
+    client = Client(host, port)
     username = input("> Enter username: ")
     client.register(username)
     client.run()
