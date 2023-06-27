@@ -1,1 +1,2 @@
-# HW_SD
+# gRPC chat
+![](screenshots/example.jpg)
